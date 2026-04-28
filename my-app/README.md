@@ -1,16 +1,40 @@
-# React + Vite
+# My App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Небольшое React-приложение на `Vite`, в котором список постов загружается из `https://jsonplaceholder.typicode.com/posts` через `Redux Toolkit` и `thunk`.
 
-Currently, two official plugins are available:
+## Запуск
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Команды:
 
-## React Compiler
+```bash
+npm install
+npm run dev
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Приложение будет доступно по адресу:
 
-## Expanding the ESLint configuration
+```text
+http://127.0.0.1:5173/
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Что есть в проекте
+
+- `src/main.jsx` подключает `Provider` и монтирует корневой компонент.
+- `src/app/store.js` создаёт Redux store через `configureStore`.
+- `src/posts/postsSlice.js` описывает slice состояния постов и асинхронный thunk `fetchPosts`.
+- `src/posts/PostsList.jsx` запрашивает данные и показывает список постов.
+- `src/App.jsx` рендерит главную страницу приложения.
+
+## Кратко по Redux
+
+- `Redux` хранит общее состояние приложения в одном store.
+- Компоненты читают данные через `useSelector`.
+- Изменения состояния отправляются через `dispatch`.
+- В этом проекте Redux хранит список постов, статус загрузки и возможную ошибку.
+
+## Кратко по Redux thunks
+
+- `Thunk` позволяет выполнять асинхронную логику до изменения store.
+- Это удобно для HTTP-запросов, таймеров и цепочек действий.
+- В `Redux Toolkit` для этого обычно используют `createAsyncThunk`.
+- В этом проекте `fetchPosts` делает запрос к API, а `extraReducers` обрабатывает состояния `pending`, `fulfilled` и `rejected`.

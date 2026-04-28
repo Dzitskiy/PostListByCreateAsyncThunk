@@ -12,8 +12,9 @@ export const PostsList = () => {
         }
     }, [dispatch, status])
 
-    if (status === 'loading') return <p>Loading...</p>
-    if (status === 'failed') return <p>Error: {error}</p> 
+    if (status === 'loading') return <p className="posts-state">Loading posts...</p>
+    if (status === 'failed') return <p className="posts-state error">Error: {error}</p>
+    if (items.length === 0) return <p className="posts-state">No posts found.</p>
 
     return (
         <div className="posts-list">
